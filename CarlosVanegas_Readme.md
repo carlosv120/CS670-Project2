@@ -1,28 +1,53 @@
 # Cluedo Game - Project 2 Part 1
 
+## Introduction
+
+This project is a simplified digital version of the classic Cluedo (Clue) board game.  
+It was created for CS670 - Artificial Intelligence - Spring 2025.  
+The game allows multiple players to move through a mansion, make suggestions, and deduce the hidden solution.
+
 ## How to Run the Game
 
-1. Install Python 3 on your computer if it is not already installed.
+1. Install **Python 3** on your computer if it is not already installed.
 2. Download and unzip the folder **CarlosVanegas_Project2_SourceCode**.
 3. Open **Visual Studio Code**.
 4. Open the folder **CarlosVanegas_Project2_SourceCode** in Visual Studio Code.
-5. Open a new terminal inside Visual Studio Code.
-6. In the terminal, run the following command: python main.py
-7. Follow the prompts to start the game.
+5. Open a terminal inside Visual Studio Code.
+6. Run the following command inside the terminal:```python main.py```
+7. Follow the on-screen instructions to start playing the game.
 
-## Folder Structure
+## Project Structure
 
-- `main.py`: Main program that controls the overall game flow.
-- `mansion.py`: Defines the list of rooms available in the mansion.
-- `characters.py`: Defines the list of playable characters.
-- `weapons.py`: Defines the list of available weapons.
-- `player_actions.py`: Handles player movement, suggestions, and validation.
-- `solution_selector.py`: Randomly selects the character, weapon, and room for the murder solution.
+- `main.py`: Controls the overall game flow, player turns, and game prompts.
+- `mansion.py`: Defines the list of rooms inside the mansion.
+- `characters.py`: Contains the list of playable characters.
+- `weapons.py`: Contains the list of available weapons.
+- `player_actions.py`: Handles player movement, suggestions, and input validation.
+- `solution_selector.py`: Randomly selects the character, weapon, and room forming the hidden murder solution.
 
-## Game Overview
+## Game Features
 
-- The game randomly selects one character, one weapon, and one room as the hidden solution.
-- Players take turns moving between rooms and making suggestions about the solution.
-- Input validation is used to avoid invalid moves or suggestions.
-- For testing purposes, the solution is printed at the beginning of the game.
-- The game continues until players exit manually.
+- Random selection of the murder solution (character, weapon, and room).
+- Support for **2 to 6 players** with input validation.
+- Turn-based system where players:
+  - Move between rooms.
+  - Make suggestions based on their current location.
+- Defensive programming to validate all user inputs.
+- For testing purposes, the solution is printed at the start of the game.
+- Players are prompted before each turn to confirm if the player is ready.
+
+## Notes
+
+- The game does not currently support accusations or win/lose conditions.  
+  These features are planned for Project 2 Part 2.
+- Exiting the game is done manually by choosing 'exit' during a move prompt.
+- Only basic console output is used. No graphical user interface is included in Part 1.
+
+## Requirements
+
+- Python 3.x
+- No external libraries are required.
+
+## Author
+
+Carlos Vanegas - Spring 2025 - CS670 Project 2 Part 1
