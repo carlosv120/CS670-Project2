@@ -32,25 +32,28 @@ def move_player(player, valid_rooms):
     show_available_rooms()
 
     while True:
-        move = input("\nWhere would you like to move? (type room name or 'exit' to leave): ").strip()
-        if move.lower() == "exit":
+        move = input("\nWhere would you like to move? (type room name or 'exit' to leave): ").strip().lower()
+
+        if move == "exit":
             return None
-        if move.lower() in valid_rooms:
-            selected_room = valid_rooms[move.lower()]
+
+        selected_room = valid_rooms.get(move)
+        if selected_room:
             player.move_to(selected_room)
             print("You moved to:", selected_room)
             return True
+
         print("Invalid input. Please type a valid room name or 'exit'.")
 
 def handle_suggestion(player):
     while True:
         make_suggestion = input("\nWould you like to make a suggestion? (yes/no): ").strip().lower()
-        if make_suggestion == "yes":
-            player.make_suggestion()
-            break
-        if make_suggestion == "no":
+        if make_suggestion in ["yes", "no"]:
             break
         print("Invalid input. Please type 'yes' or 'no'.")
+
+    if make_suggestion == "yes":
+        player.make_suggestion()
 
 def main():
     print("Project 2 Part 1: Cluedo")
