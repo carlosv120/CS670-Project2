@@ -52,6 +52,10 @@
   These features are planned for Project 2 Part 2.
 - Exiting the game is done manually by choosing 'exit' during a move prompt.
 - Only basic console output is used. No graphical user interface is included in Part 1.
+- The project includes two versions of the README file:
+  - `CarlosVanegas_Readme.md`: Created to meet the instructions provided in the Project 2 Part 1 assignment.
+  - `README.md`: Added so the README content appears on the main page of the GitHub repository.
+
 
 ## Requirements
 
