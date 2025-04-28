@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This project is a simplified digital version of the classic Cluedo (Clue) board game.  
-It was created for CS670 - Artificial Intelligence - Spring 2025.  
-The game allows multiple players to move through a mansion and make suggestions to simulate solving the mystery.
+ - This project is a simplified version of the Cluedo (Clue) game.  
+ - It was created for CS670 - Artificial Intelligence - Spring 2025.  
+ - The game allows multiple players to move through a mansion and make suggestions to simulate solving the mystery.
 
 ## How to Run the Game (Option 1)
 
@@ -13,7 +13,7 @@ The game allows multiple players to move through a mansion and make suggestions 
 3. Open **Visual Studio Code**.
 4. Open the folder **CarlosVanegas_Project2_SourceCode** in Visual Studio Code.
 5. Open a new terminal inside Visual Studio Code.
-6. Run the following command inside the terminal:```python main.py```
+6. Run the following command inside the bash terminal:```python main.py```
 7. Follow the on-screen instructions to start playing the game.
 
 ## How to Run the Game (Option 2)
@@ -23,15 +23,15 @@ The game allows multiple players to move through a mansion and make suggestions 
 3. Open **Visual Studio Code**.
 4. Open the folder **CarlosVanegas_Project2_SourceCode** inside Visual Studio Code.
 5. Open a new terminal inside Visual Studio Code.
-6. Run the following command inside the terminal:```python main.py```
+6. Run the following command inside the bash terminal:```python main.py```
 7. Follow the on-screen instructions to start playing the game.
 
 ## Project Structure
 
-- `main.py`: Controls the overall game flow, player turns, and game prompts.
-- `mansion.py`: Defines the list of rooms inside the mansion.
-- `characters.py`: Contains the list of playable characters.
-- `weapons.py`: Contains the list of available weapons.
+- `main.py`: Main file of the game. Includes player turns, and game prompts.
+- `mansion.py`: Contains the list of rooms inside the mansion.
+- `characters.py`: Contains the list of characters.
+- `weapons.py`: Contains the list of weapons.
 - `player_actions.py`: Handles player movement, suggestions, and input validation.
 - `solution_selector.py`: Randomly selects the character, weapon, and room forming the hidden murder solution.
 
