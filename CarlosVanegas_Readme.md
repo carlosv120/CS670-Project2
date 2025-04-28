@@ -4,15 +4,25 @@
 
 This project is a simplified digital version of the classic Cluedo (Clue) board game.  
 It was created for CS670 - Artificial Intelligence - Spring 2025.  
-The game allows multiple players to move through a mansion, make suggestions, and deduce the hidden solution.
+The game allows multiple players to move through a mansion and make suggestions to simulate solving the mystery.
 
-## How to Run the Game
+## How to Run the Game (Option 1)
 
-1. Install **Python 3** on your computer if it is not already installed.
+1. Make sure you have **Python 3** installed on your computer.
 2. Download and unzip the folder **CarlosVanegas_Project2_SourceCode**.
 3. Open **Visual Studio Code**.
 4. Open the folder **CarlosVanegas_Project2_SourceCode** in Visual Studio Code.
-5. Open a terminal inside Visual Studio Code.
+5. Open a new terminal inside Visual Studio Code.
+6. Run the following command inside the terminal:```python main.py```
+7. Follow the on-screen instructions to start playing the game.
+
+## How to Run the Game (Option 2)
+
+1. Make sure you have **Python 3** installed on your computer.
+2. Clone the repository from GitHub: [https://github.com/carlosv120/CS670-Project2_Part1](https://github.com/carlosv120/CS670-Project2_Part1)
+3. Open **Visual Studio Code**.
+4. Open the folder **CarlosVanegas_Project2_SourceCode** inside Visual Studio Code.
+5. Open a new terminal inside Visual Studio Code.
 6. Run the following command inside the terminal:```python main.py```
 7. Follow the on-screen instructions to start playing the game.
 

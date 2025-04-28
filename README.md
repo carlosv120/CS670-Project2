@@ -4,7 +4,7 @@
 
 This project is a simplified digital version of the classic Cluedo (Clue) board game.  
 It was created for CS670 - Artificial Intelligence - Spring 2025.  
-The game allows multiple players to move through a mansion, make suggestions, and deduce the hidden solution.
+The game allows multiple players to move through a mansion and make suggestions to simulate solving the mystery.
 
 ## How to Run the Game (Option 1)
 
