@@ -22,6 +22,12 @@ def get_player_names(num_players):
             print("Invalid name. Please enter a valid name using only letters.")
     return players
 
+def print_solution_for_testing(solution):
+    print(f"\nFor testing purposes, the solution is: {solution}\n")
+
+def build_valid_room_map():
+    return {room.lower(): room for room in mansion_rooms}
+
 def show_available_rooms():
     print("\nAvailable Rooms:")
     for room in mansion_rooms:
@@ -55,17 +61,20 @@ def handle_suggestion(player):
     if make_suggestion == "yes":
         player.make_suggestion()
 
-def main():
-    print("Project 2 Part 1: Cluedo")
+def prompt_next_player(next_player, player):
+    while True:
+        ready = input(f"\nIs next player {next_player.name} ready? (yes/no): ").strip().lower()
+        if ready == "yes":
+            print(f"\n--------- End of {player.name}'s Turn ---------\n")
+            return
+        if ready == "no":
+            print("Take your time, let me know when ready.")
+        else:
+            print("Invalid input. Please type 'yes' or 'no'.")
 
-    num_players = get_number_of_players()
-    players = get_player_names(num_players)
-    solution = select_solution()
-
-    print(f"\nFor testing purposes, the solution is: {solution}\n")
-
-    valid_rooms = {room.lower(): room for room in mansion_rooms}
+def game_loop(players, valid_rooms):
     current_player_index = 0
+    num_players = len(players)
     game_active = True
 
     while game_active:
@@ -73,7 +82,6 @@ def main():
         print(f"********* {player.name}'s Turn *********")
 
         move_successful = move_player(player, valid_rooms)
-
         if move_successful is None:
             print(f"{player.name} has exited the game.")
             game_active = False
@@ -83,20 +91,22 @@ def main():
 
         next_player_index = (current_player_index + 1) % num_players
         next_player = players[next_player_index]
-
-        while True:
-            ready = input(f"\nIs next player {next_player.name} ready? (yes/no): ").strip().lower()
-            if ready == "yes":
-                print(f"\n--------- End of {player.name}'s Turn ---------\n\n")
-                break
-            if ready == "no":
-                print("Take your time, let me know when ready.")
-            else:
-                print("Invalid input. Please type 'yes' or 'no'.")
+        prompt_next_player(next_player, player)
 
         current_player_index = next_player_index
 
     print("\nGame has ended.")
+
+def main():
+    print("Project 2 Part 1: Cluedo")
+
+    num_players = get_number_of_players()
+    players = get_player_names(num_players)
+    solution = select_solution()
+    print_solution_for_testing(solution)
+
+    valid_rooms = build_valid_room_map()
+    game_loop(players, valid_rooms)
 
 if __name__ == "__main__":
     main()

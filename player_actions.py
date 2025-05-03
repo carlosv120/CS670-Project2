@@ -11,23 +11,28 @@ class Player:
 
     def make_suggestion(self):
         print("\nMake your suggestion:")
-
-        valid_characters = {character.lower(): character for character in characters_list}
-        valid_weapons = {weapon.lower(): weapon for weapon in weapons_list}
-
-        character = self._prompt_choice(
-            prompt_message=f"\nChoose a character {characters_list}: ",
-            valid_options=valid_characters,
-            item_type="character"
+        character = self._choose_character()
+        weapon = self._choose_weapon()
+        print(
+            f"\nYou suggested that {character} committed the crime "
+            f"in the {self.current_room} with the {weapon}."
         )
 
-        weapon = self._prompt_choice(
-            prompt_message=f"\nChoose a weapon {weapons_list}: ",
-            valid_options=valid_weapons,
-            item_type="weapon"
+    def _choose_character(self):
+        lookup = self._build_lookup(characters_list)
+        return self._prompt_choice(
+            f"\nChoose a character {characters_list}: ", lookup, "character"
         )
 
-        print(f"\nYou suggested that {character} committed the crime in the {self.current_room} with the {weapon}.")
+    def _choose_weapon(self):
+        lookup = self._build_lookup(weapons_list)
+        return self._prompt_choice(
+            f"\nChoose a weapon {weapons_list}: ", lookup, "weapon"
+        )
+
+    @staticmethod
+    def _build_lookup(options):
+        return {item.lower(): item for item in options}
 
     def _prompt_choice(self, prompt_message, valid_options, item_type):
         while True:
