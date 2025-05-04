@@ -1,4 +1,31 @@
-# Cluedo Game - Project 2 Part 1
+# Cluedo Game - Project 2 Part 2
+
+## What’s New in Part 2
+
+| Feature | Description |
+|---------|-------------|
+| **Suggestion & Refutation** | When a player suggests a character + weapon + room, the other players are prompted in order to reveal a matching card (if any). Each suggestion, the refuter (if any), and the card shown are stored in the suggesting player’s **Notes**. |
+| **Notes System** | Type **`notes`** instead of a room name to view the running log of your own suggestions, refutations, and every card you have seen so far. |
+| **Accusation Mechanism** | At any time during a turn, a player can attempt a full accusation. If correct, the game ends and that player wins. If wrong, the accusing player is **eliminated** from further turns but must still answer refutation prompts. |
+| **Elimination & Unsolved Crime** | The loop automatically skips eliminated players. If every player is eliminated (or exits) without a correct solution, the game ends and prints “Crime unsolved” with the hidden solution. |
+| **Defensive Prompts** | All new inputs (accusation picks, refutation card choices, etc.) are fully validated and re‑prompted on bad input. |
+| **Polished Prompts** | Accusation now prints once (`**** ACCUSE ****`), shows clean bullet lists, pauses two seconds for dramatic effect, and then declares the outcome. |
+
+## How to Run (same as Part 1)
+
+> **If you already ran Part 1, you only need to replace the source files.**  
+> Steps for both the ZIP workflow and the Git clone workflow remain identical.
+
+1. Ensure **Python 3.x** is installed.  
+2. Either unzip **CarlosVanegas_Project2_SourceCode** *or* clone  
+   `https://github.com/carlosv120/CS670-Project2_Part1`  
+3. Open the folder in **Visual Studio Code**.  
+4. Open a terminal.  
+5. Run `python main.py` and follow the prompts.
+
+---
+
+# Cluedo Game - Project 2 Part 1
 
 ## Introduction
 
