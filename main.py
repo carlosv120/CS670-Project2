@@ -46,15 +46,28 @@ def move_player(player, valid_rooms):
     print("\nYou are in:", player.current_room)
     show_available_rooms()
     while True:
-        move = input("\nWhere would you like to move? (type room name or 'exit' to leave): ").strip().lower()
+        move = input(
+            "\nWhere would you like to move? (type room name, 'notes', or 'exit'): "
+        ).strip().lower()
+
+        if move == "notes":
+            player.show_notes()
+            continue
         if move == "exit":
             return None
+
         selected_room = valid_rooms.get(move)
-        if selected_room:
-            player.move_to(selected_room)
-            print("You moved to:", selected_room)
-            return True
-        print("Invalid input. Please type a valid room name or 'exit'.")
+        if not selected_room:
+            print("\nInvalid input. Please type a room name, 'notes', or 'exit'.")
+            continue
+        if selected_room == player.current_room:
+            print("You are already in that room. Pick a different room.")
+            continue
+
+        player.move_to(selected_room)
+        print("You moved to:", selected_room)
+        return True
+
 
 
 def handle_suggestion(player, players, current_player_index):
@@ -74,16 +87,16 @@ def prompt_next_player(next_player, player):
             print(f"\n--------- End of {player.name}'s Turn ---------\n")
             return
         if ready == "no":
-            print("Take your time, let me know when ready.")
+            print("\nTake your time, let me know when ready.")
         else:
             print("Invalid input. Please type 'yes' or 'no'.")
 
 
 def deal_cards(players, solution):
     deck = (
-        [c for c in characters_list if c != solution["Character"]] +
-        [w for w in weapons_list if w != solution["Weapon"]] +
-        [r for r in mansion_rooms if r != solution["Room"]]
+        [c for c in characters_list if c != solution["Character"]]
+        + [w for w in weapons_list if w != solution["Weapon"]]
+        + [r for r in mansion_rooms if r != solution["Room"]]
     )
     shuffle(deck)
     for idx, card in enumerate(deck):
@@ -110,7 +123,7 @@ def game_loop(players, valid_rooms):
 
 
 def main():
-    print("Project 2 Part 1: Cluedo")
+    print("\nProject 2 Part 2: Cluedo")
     num_players = get_number_of_players()
     players = get_player_names(num_players)
     solution = select_solution()
