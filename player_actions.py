@@ -18,7 +18,7 @@ class Player:
         self.hand = []
         self.notes = []
         self.seen = set()
-        self.active = True 
+        self.active = True
 
     def move_to(self, room):
         self.current_room = room
@@ -36,9 +36,9 @@ class Player:
     def make_suggestion(self, players, current_player_index):
         print("\nMake your suggestion:")
         print(f"Remember, these are your cards: {sort_cards(self.hand)}")
-        character = self._choose_character()
-        weapon = self._choose_weapon()
-        room = self.current_room
+        character = self._choose_item("character", characters_list)
+        weapon    = self._choose_item("weapon", weapons_list)
+        room      = self.current_room
         print(f"\nYou suggested that {character} committed the crime in the {room} with the {weapon}.")
         refuter, shown_card = self._refute(players, current_player_index, {character, weapon, room})
         self.notes.append(
@@ -49,33 +49,16 @@ class Player:
         if shown_card:
             self.seen.add(shown_card)
 
-    def _choose_character(self):
-        lookup = self._build_lookup(characters_list)
+    def _choose_item(self, item_type, options):
+        lookup = {item.lower(): item for item in options}
         while True:
-            card = self._prompt_choice(f"\nChoose a character {characters_list}: ", lookup, "character")
-            if card in self.hand:
-                print("You have that character in your deck. Pick another character.")
-                continue
-            return card
-
-    def _choose_weapon(self):
-        lookup = self._build_lookup(weapons_list)
-        while True:
-            card = self._prompt_choice(f"\nChoose a weapon {weapons_list}: ", lookup, "weapon")
-            if card in self.hand:
-                print("You have that weapon in your deck. Pick another weapon.")
-                continue
-            return card
-
-    @staticmethod
-    def _build_lookup(options):
-        return {item.lower(): item for item in options}
-
-    def _prompt_choice(self, prompt_message, valid_options, item_type):
-        while True:
-            value = input(prompt_message).strip().lower()
-            if value in valid_options:
-                return valid_options[value]
+            print(f"\nChoose a {item_type} {options}: ")
+            value = input("> ").strip().lower()
+            if value in lookup:
+                if lookup[value] in self.hand:
+                    print(f"You have that {item_type} in your deck. Pick another.")
+                    continue
+                return lookup[value]
             print(f"Invalid {item_type}. Please choose from the list.")
 
     def _refute(self, players, current_player_index, suggestion_set):
@@ -89,28 +72,35 @@ class Player:
                 continue
 
             print(f"\n{other.name} can refute. Passing control to {other.name}...")
-            while True:
-                ready = input("Are you ready to reveal a card? (yes/no): ").strip().lower()
-                if ready == "no":
-                    print("\nTake your time, let me know when you are ready.")
-                    continue
-                if ready != "yes":
-                    print("\nPlease answer 'yes' or 'no'.")
-                    continue
+            if not self._wait_for_ready():
+                continue
 
-                print(f"\n{other.name}, you can refute with {matches}.")
-                if len(matches) == 1:
-                    shown = matches[0]
-                else:
-                    lookup = {m.lower(): m for m in matches}
-                    while True:
-                        chosen = input("Select the card to reveal: ").strip().lower()
-                        if chosen in lookup:
-                            shown = lookup[chosen]
-                            break
-                        print("Invalid choice. Pick from the list.")
-                print(f"\n{other.name} refuted with {shown}")
-                return other.name, shown
+            print(f"\n{other.name}, you can refute with {matches}.")
+            if len(matches) == 1:
+                shown = matches[0]
+            else:
+                shown = self._prompt_refute_choice(matches)
+
+            print(f"\n{other.name} refuted with {shown}")
+            return other.name, shown
 
         print("No one could refute your suggestion.")
         return None, None
+
+    def _wait_for_ready(self):
+        while True:
+            ready = input("Are you ready to reveal a card? (yes/no): ").strip().lower()
+            if ready == "yes":
+                return True
+            if ready == "no":
+                print("\nTake your time, let me know when you are ready.")
+                continue
+            print("\nPlease answer 'yes' or 'no'.")
+
+    def _prompt_refute_choice(self, matches):
+        lookup = {m.lower(): m for m in matches}
+        while True:
+            chosen = input("Select the card to reveal: ").strip().lower()
+            if chosen in lookup:
+                return lookup[chosen]
+            print("Invalid choice. Pick from the list.")
