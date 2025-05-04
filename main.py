@@ -6,6 +6,20 @@ from player_actions import Player, sort_cards
 from solution_selector import select_solution
 import time
 
+def clean_input(prompt):
+    return input(prompt).strip().lower()
+
+def get_valid_input(prompt, valid_options):
+    while True:
+        response = clean_input(prompt)
+        if response in valid_options:
+            return response
+        print("Invalid input. Please type one of:", ', '.join(valid_options))
+
+def print_option_list(label, options):
+    print(f"\nChoose a {label}:")
+    for item in options:
+        print(f"  - {item}")
 
 def get_number_of_players():
     while True:
@@ -14,7 +28,7 @@ def get_number_of_players():
             num_players = int(user_input)
             if 2 <= num_players <= 6:
                 return num_players
-        print("Invalid input. Please enter a valid number between 2 and 6.")
+        print("Invalid input. Please enter a valid number between 2 and 6.\n")
 
 
 def get_player_names(num_players):
@@ -47,9 +61,7 @@ def move_player(player, valid_rooms):
     print("\nYou are in:", player.current_room)
     show_available_rooms()
     while True:
-        move = input(
-            "\nWhere would you like to move? (type room name, 'notes', or 'exit'): "
-        ).strip().lower()
+        move = clean_input("\nWhere would you like to move? (type room name, 'notes', or 'exit'): ")
 
         if move == "notes":
             player.show_notes()
@@ -72,11 +84,7 @@ def move_player(player, valid_rooms):
 
 
 def handle_suggestion(player, players, current_player_index):
-    while True:
-        make_suggestion = input("\nWould you like to make a suggestion? (yes/no): ").strip().lower()
-        if make_suggestion in ("yes", "no"):
-            break
-        print("Invalid input. Please type 'yes' or 'no'.")
+    make_suggestion = get_valid_input("\nWould you like to make a suggestion? (yes/no): ", ("yes", "no"))
     if make_suggestion == "yes":
         player.make_suggestion(players, current_player_index)
 
@@ -84,29 +92,23 @@ def handle_suggestion(player, players, current_player_index):
 def _prompt_accuse_item(label, options, first=False):
     if first:
         print("\n**** ACCUSE ****")
-    print(f"\nChoose a {label}:")
-    for item in options:
-        print(f"  - {item}")
+    print_option_list(label, options)
     lookup = {o.lower(): o for o in options}
     while True:
-        choice = input("> ").strip().lower()
+        choice = clean_input("> ")
         if choice in lookup:
             return lookup[choice]
-        print("Invalid choice. Type one of the names above.")
+        print("Invalid choice. Type one of the names above.\n")
 
 
 def handle_accusation(player, solution):
-    while True:
-        accuse = input("\nDo you want to make an accusation? (yes/no): ").strip().lower()
-        if accuse in ("yes", "no"):
-            break
-        print("Invalid input. Please type 'yes' or 'no'.")
+    accuse = get_valid_input("\nDo you want to make an accusation? (yes/no): ", ("yes", "no"))
     if accuse == "no":
         return False, False
 
     char = _prompt_accuse_item("character", characters_list, first=True)
-    weap = _prompt_accuse_item("weapon",    weapons_list)
-    room = _prompt_accuse_item("room",      mansion_rooms)
+    weap = _prompt_accuse_item("weapon", weapons_list)
+    room = _prompt_accuse_item("room", mansion_rooms)
 
     print(f"\n{player.name} accuses {char} in the {room} with the {weap}!")
     time.sleep(2)
@@ -122,7 +124,7 @@ def handle_accusation(player, solution):
 
 def prompt_next_player(next_player, player):
     while True:
-        ready = input(f"\nIs next player {next_player.name} ready? (yes/no): ").strip().lower()
+        ready = clean_input(f"\nIs next player {next_player.name} ready? (yes/no): ")
         if ready == "yes":
             print(f"\n--------- End of {player.name}'s Turn ---------\n")
             return
@@ -169,7 +171,7 @@ def game_loop(players, valid_rooms, solution):
         won, ended = handle_accusation(player, solution)
         if won:
             return
-        if ended and not [p for p in players if p.active]:
+        if ended and all(not p.active for p in players):
             print("\nNo active players remain. Crime unsolved.")
             print("The correct solution was:", solution)
             return
@@ -181,18 +183,24 @@ def game_loop(players, valid_rooms, solution):
         current_player_index = next_index
 
 
-def main():
+def setup_game():
     print("\nProject 2 Part 2: Cluedo")
     num_players = get_number_of_players()
     players = get_player_names(num_players)
+    for p in players:
+        p.active = True
     solution = select_solution()
     print_solution_for_testing(solution)
     deal_cards(players, solution)
     for p in players:
-        p.active = True
         print(f"{p.name}'s hand: {sort_cards(p.hand)}")
     print()
     valid_rooms = build_valid_room_map()
+    return players, valid_rooms, solution
+
+
+def main():
+    players, valid_rooms, solution = setup_game()
     game_loop(players, valid_rooms, solution)
 
 
