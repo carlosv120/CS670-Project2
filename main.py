@@ -125,6 +125,10 @@ def handle_accusation(player, solution):
     if accuse == "no":
         return False, False
 
+    print("\nBefore accusing, review your notes and your cards.")
+    player.show_notes()
+    print("Your cards:", sort_cards(player.hand))
+
     char = _prompt_accuse_item("character", characters_list, first=True)
     weap = _prompt_accuse_item("weapon", weapons_list)
     room = _prompt_accuse_item("room", mansion_rooms)
@@ -133,13 +137,11 @@ def handle_accusation(player, solution):
     time.sleep(2)
 
     if {"Character": char, "Weapon": weap, "Room": room} == solution:
-
         print(f"\n>>> {player.name} made a CORRECT accusation and wins the game! <<<")
         return True, True
 
     print("\nThat accusation is incorrect. You are out of the game.")
     player.active = False
-
     return False, False
 
 
