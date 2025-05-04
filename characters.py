@@ -1,8 +1,8 @@
 characters_list = [
     "Miss Scarlett",
-    "Colonel Mustard",
-    "Mrs. Peacock",
-    "Professor Plum",
-    "Reverend Green",
-    "Mrs. White"
+    "Col Mustard",
+    "Mrs Peacock",
+    "Prof Plum",
+    "Mr Green",
+    "Mrs White"
 ]
