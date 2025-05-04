@@ -18,7 +18,7 @@
 
 1. Ensure **Python 3.x** is installed.  
 2. Either unzip **CarlosVanegas_Project2_SourceCode** *or* clone  
-   `https://github.com/carlosv120/CS670-Project2_Part1`  
+   `https://github.com/carlosv120/CS670-Project2`  
 3. Open the folder in **Visual Studio Code**.  
 4. Open a terminal.  
 5. Run `python main.py` and follow the prompts.
@@ -46,7 +46,7 @@
 ## How to Run the Game (Option 2)
 
 1. Make sure you have **Python 3** installed on your computer.
-2. Clone the repository from GitHub: [https://github.com/carlosv120/CS670-Project2_Part1](https://github.com/carlosv120/CS670-Project2_Part1)
+2. Clone the repository from GitHub: [https://github.com/carlosv120/CS670-Project2](https://github.com/carlosv120/CS670-Project2)
 3. Open **Visual Studio Code**.
 4. Open the folder **CarlosVanegas_Project2_SourceCode** inside Visual Studio Code.
 5. Open a new terminal inside Visual Studio Code.
