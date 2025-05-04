@@ -18,6 +18,7 @@ class Player:
         self.hand = []
         self.notes = []
         self.seen = set()
+        self.active = True 
 
     def move_to(self, room):
         self.current_room = room
@@ -87,7 +88,6 @@ class Player:
                 print(f"{other.name} cannot refute.")
                 continue
 
-            # announce control hand‑off first
             print(f"\n{other.name} can refute. Passing control to {other.name}...")
             while True:
                 ready = input("Are you ready to reveal a card? (yes/no): ").strip().lower()
@@ -98,7 +98,6 @@ class Player:
                     print("\nPlease answer 'yes' or 'no'.")
                     continue
 
-                # now display the matching cards and let the refuter pick
                 print(f"\n{other.name}, you can refute with {matches}.")
                 if len(matches) == 1:
                     shown = matches[0]
