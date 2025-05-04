@@ -94,7 +94,18 @@ class Player:
             else:
                 shown = self._prompt_refute_choice(matches)
 
-            print(f"\n{other.name} refuted with {shown}")
+            print(f"\n***************{other.name} refuted with {shown}***************")
+            print(f"\nPassing control to {self.name} (Player's turn).")
+
+            while True:
+                confirm = input(f"\n{self.name}, are you ready to continue? (yes/no): ").strip().lower()
+                if confirm == "yes":
+                    break
+                if confirm == "no":
+                    print("Take your time, let me know when you're ready.")
+                else:
+                    print("Invalid input. Please answer 'yes' or 'no'.")
+
             return other.name, shown
 
         print("No one could refute your suggestion.")
