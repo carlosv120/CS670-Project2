@@ -9,6 +9,7 @@ import time
 def clean_input(prompt):
     return input(prompt).strip().lower()
 
+
 def get_valid_input(prompt, valid_options):
 
     while True:
@@ -18,11 +19,13 @@ def get_valid_input(prompt, valid_options):
             return response
         print("Invalid input. Please type one of:", ', '.join(valid_options))
 
+
 def print_option_list(label, options):
     print(f"\nChoose a {label}:")
 
     for item in options:
         print(f"  - {item}")
+
 
 def get_number_of_players():
 
@@ -93,7 +96,6 @@ def move_player(player, valid_rooms):
         print("You moved to:", selected_room)
 
         return True
-
 
 
 def handle_suggestion(player, players, current_player_index):

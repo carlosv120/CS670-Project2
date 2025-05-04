@@ -1,4 +1,3 @@
-from random import choice
 from characters import characters_list
 from weapons import weapons_list
 from mansion import mansion_rooms
@@ -12,6 +11,7 @@ def sort_cards(hand):
 
 
 class Player:
+
     def __init__(self, name):
         self.name = name
         self.current_room = "Hall"
