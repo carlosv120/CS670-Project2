@@ -5,6 +5,7 @@ from weapons import weapons_list
 from player_actions import Player, sort_cards
 from solution_selector import select_solution
 import time
+import os
 
 def clean_input(prompt):
     return input(prompt).strip().lower()
@@ -55,7 +56,13 @@ def get_player_names(num_players):
 
 
 def print_solution_for_testing(solution):
-    print(f"\n[SOLUTION FOR TESTING] {solution}\n")
+    print(f"\n[SOLUTION FOR TESTING] \n{solution}\n")
+
+
+def print_all_hands(players):
+    print("[PLAYER HANDS]")
+    for p in players:
+        print(f"{p.name}'s hand: {sort_cards(p.hand)}\n")
 
 
 def build_valid_room_map():
@@ -147,13 +154,17 @@ def handle_accusation(player, solution):
     return False, False
 
 
-def prompt_next_player(next_player, player):
-
+def prompt_next_player(next_player, player, players, solution):
     while True:
         ready = clean_input(f"\nIs next player {next_player.name} ready? (yes/no): ")
 
         if ready == "yes":
-            print(f"\n--------- End of {player.name}'s Turn ---------\n")
+            print(f"\n--------- End of {player.name}'s Turn ---------")
+            time.sleep(1)
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print_solution_for_testing(solution)
+            print_all_hands(players)
+            print(f"\n********* {next_player.name}'s Turn *********")
             return
         if ready == "no":
             print("\nTake your time, let me know when ready.")
@@ -177,7 +188,7 @@ def deal_cards(players, solution):
 def game_loop(players, valid_rooms, solution):
     current_player_index = 0
     num_players = len(players)
-
+    print(f"\n********* {players[current_player_index].name}'s Turn *********")
     while True:
         active_players = [p for p in players if p.active]
 
@@ -192,7 +203,6 @@ def game_loop(players, valid_rooms, solution):
             current_player_index = (current_player_index + 1) % num_players
             continue
 
-        print(f"********* {player.name}'s Turn *********")
         move_successful = move_player(player, valid_rooms)
 
         if move_successful is None:
@@ -216,7 +226,7 @@ def game_loop(players, valid_rooms, solution):
         while not players[next_index].active:
             next_index = (next_index + 1) % num_players
 
-        prompt_next_player(players[next_index], player)
+        prompt_next_player(players[next_index], player, players, solution)
         current_player_index = next_index
 
 
@@ -230,11 +240,7 @@ def setup_game():
     solution = select_solution()
     print_solution_for_testing(solution)
     deal_cards(players, solution)
-
-    for p in players:
-        print(f"{p.name}'s hand: {sort_cards(p.hand)}\n")
-    print()
-
+    print_all_hands(players)
     valid_rooms = build_valid_room_map()
     return players, valid_rooms, solution
 

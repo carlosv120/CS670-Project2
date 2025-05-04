@@ -94,7 +94,7 @@ class Player:
             else:
                 shown = self._prompt_refute_choice(matches)
 
-            print(f"\n***************{other.name} refuted with {shown}***************")
+            print(f"\n*************** {other.name} refuted with {shown} ***************")
             print(f"\nPassing control to {self.name} (Player's turn).")
 
             while True:
