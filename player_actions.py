@@ -130,4 +130,4 @@ class Player:
             chosen = input("Select the card to reveal: ").strip().lower()
             if chosen in lookup:
                 return lookup[chosen]
-            print("Invalid choice. Pick from the list.")
+            print("Invalid choice. Pick from the list.\n")
